@@ -82,6 +82,10 @@ body {
   cursor: pointer;
 }
 
+.game-over > span {
+  height: 20px;
+}
+
 /******************************************
 /* ADDITIONAL STYLES
 /*******************************************/

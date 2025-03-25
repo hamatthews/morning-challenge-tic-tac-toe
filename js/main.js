@@ -24,13 +24,13 @@ class Game {
             const rowIndex = Math.floor(i / this.grid.length);
             const columnIndex = i % this.grid.length;
 
-            e.addEventListener("click", event => this.handleClick.call(this, event, rowIndex, columnIndex));
+            e.addEventListener("click", this.handleClick.bind(this, rowIndex, columnIndex));
         });
 
-        nextGameButton.addEventListener("click", () => this.restartGame.call(this));
+        nextGameButton.addEventListener("click", this.restartGame.bind(this));
     }
 
-    handleClick(event, rowIndex, columnIndex) {
+    handleClick(rowIndex, columnIndex, event) {
         if (!this.gameWinner && this.grid[rowIndex][columnIndex] == null) {
             const symbol = this.turnPlayerSymbol[this.turnPlayer];
             this.grid[rowIndex][columnIndex] = symbol;
@@ -76,7 +76,7 @@ class Game {
 
     endGame() {
         const gameOverScreen = document.querySelector(".game-over");
-        const winnerElement = document.querySelector("h2");
+        const winnerElement = document.querySelector(".game-over > span");
         winnerElement.innerText = this.gameWinner == 1 ? "Player 1 wins!" : this.gameWinner == 2 ? "Player 2 wins!" : "The game is a tie!";
 
         gameOverScreen.classList.add("active");
@@ -84,7 +84,7 @@ class Game {
 
     restartGame() {
         const gameOverScreen = document.querySelector(".game-over");
-        const winnerElement = document.querySelector("h2");
+        const winnerElement = document.querySelector(".game-over > span");
         const domCells = document.querySelectorAll(".cell");
 
         winnerElement.innerText = "";
